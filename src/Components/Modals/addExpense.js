@@ -74,7 +74,7 @@ const AddExpenseModal=({isExpenseModalVisible,handleExpenseCancel,onFinish})=>{
                             </Select>
                         </Form.Item>
                         <Form.Item>
-                            <Button className="btn btn-blue" type="primary" htmlType="submit">Add Income</Button>
+                            <Button className="btn btn-blue" type="primary" htmlType="submit">Add Expense</Button>
                         </Form.Item>
                     </Form>
             </Modal>

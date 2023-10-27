@@ -50,7 +50,7 @@ h3{
     gap: 15px;
     font-size: 0.8rem !important;
 }
-.csv div{
+.csv div,label{
     padding: 0.5rem 1rem !important;
 }
 .user-photo{
