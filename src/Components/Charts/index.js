@@ -24,7 +24,7 @@ const Chart=({sortedTransactions})=>{
     },{});
     
     const spendingConfig = {
-        spendingData:finalSpendings,
+        data:Object.values(finalSpendings),
         width: 800,
         angleField:"amount",
         colorField:"category"

@@ -124,7 +124,7 @@ const Dashboard=()=>{
                    expense={expense}
                    totalBalance={totalBalance}
             />
-            {transactions.length!=0?<Chart sortedTransactions={soretedTransactions}/>:<NoTransactions/>}
+            { transactions && transactions.length!=0?<Chart sortedTransactions={soretedTransactions}/>:<NoTransactions/>}
             <AddIncomeModal isIncomeModalVisible={isIncomeModalVisible} handleIncomeCancel={handleIncomeCancel} onFinish={onFinish}/>
             <AddExpenseModal isExpenseModalVisible={isExpenseModalVisible} handleExpenseCancel={handleExpenseCancel} onFinish={onFinish}/>
             </>)}
