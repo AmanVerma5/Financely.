@@ -27,7 +27,7 @@ const Chart=({sortedTransactions})=>{
         data:Object.values(finalSpendings),
         width: 800,
         angleField:"amount",
-        colorField:"category"
+        colorField:"tag"
 
       };
       const config = {

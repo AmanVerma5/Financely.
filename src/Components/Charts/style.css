@@ -11,4 +11,11 @@
 .line-chart{
     box-shadow: var(--shadow);
     padding: 1rem;
+    width:65%;
+}
+.pie-chart{
+    box-shadow: var(--shadow);
+    padding: 1rem;
+    width:35%;
+    height:auto;
 }
