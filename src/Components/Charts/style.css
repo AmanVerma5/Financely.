@@ -1,0 +1,14 @@
+.chart-wrapper{
+    width:90%;
+    margin:1rem auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:15px;
+
+}
+
+.line-chart{
+    box-shadow: var(--shadow);
+    padding: 1rem;
+}
