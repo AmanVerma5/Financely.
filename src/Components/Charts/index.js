@@ -13,6 +13,8 @@ const Chart=({sortedTransactions})=>{
         if(transaction.type==='expense') return{tag: transaction.tag,amount:transaction.amount}
     })
 
+    console.log("SPendings>>>>>>>>",spendingData)
+
     let finalSpendings=spendingData.reduce((acc,obj)=>{
         let key=obj.tag;
         if(!acc[key]){
