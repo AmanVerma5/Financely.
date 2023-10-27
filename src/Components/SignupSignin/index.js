@@ -58,6 +58,7 @@ const SignupSignin=()=>{
 
         const userRef=doc(db,"users",user.uid);
         const userData=await getDoc(userRef);
+        console.log(userData);
 
         if(!userData.exists()){
             try{

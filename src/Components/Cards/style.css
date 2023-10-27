@@ -1,6 +1,6 @@
 .my-card{
     box-shadow: var(--shadow);
-    min-width: 400px;
+    min-width: 360px;
     font-family: 'Montserrat', sans-serif;
     border-radius: 0.5rem;
     flex:1;

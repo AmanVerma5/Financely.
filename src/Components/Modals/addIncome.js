@@ -1,6 +1,6 @@
-import { DatePicker, Form, Input, Modal, Select } from "antd";
+import { DatePicker, Form, Input, Modal, Select,Button } from "antd";
 import React from "react";
-import Button from "../Button";
+import './addIncome.css';
 
 const AddIncomeModal=({isIncomeModalVisible,handleIncomeCancel,onFinish})=>{
 
@@ -74,7 +74,7 @@ const AddIncomeModal=({isIncomeModalVisible,handleIncomeCancel,onFinish})=>{
                             </Select>
                         </Form.Item>
                         <Form.Item>
-                            <Button text="Add Income" blue={true}/>
+                            <Button className="btn btn-blue" type="primary" htmlType="submit">Add Income</Button>
                         </Form.Item>
                     </Form>
             </Modal>

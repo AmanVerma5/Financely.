@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../Components/Header";
 import Cards from "../Components/Cards";
-import { Modal } from "antd";
 import AddIncomeModal from "../Components/Modals/addIncome";
+import { addDoc,collection, getDocs, query } from "firebase/firestore";
+import { auth, db } from "../fierbase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
+import AddExpenseModal from "../Components/Modals/addExpense";
+import TransactionTable from "../Components/TransactionTable";
 
 const Dashboard=()=>{
+    
 
+    const [transactions,setTransactions]=useState([]);
+    const [user]=useAuthState(auth)
     const [isExpenseModalVisible,setIsExpenseModalVisible]=useState(false);
     const [isIncomeModalVisible,setIsIncomeModalVisible]=useState(false);
+    const [loading,setLoading]=useState(false);
+    const [income,setIncome]=useState(0);
+    const [expense,setExpense]=useState(0);
+    const [totalBalance,setTotalBalance]=useState(0);
+
 
     const showExpenseModal=()=>{
         setIsExpenseModalVisible(true);
@@ -25,20 +38,94 @@ const Dashboard=()=>{
         setIsIncomeModalVisible(false);
     }
 
+
+    function calculateBalance(){
+        let incomeTotal=0;
+        let expenseTotal=0;
+
+        transactions.forEach((transaction)=>{
+            if(transaction.type==='income'){
+                incomeTotal+=transaction.amount
+            }else{
+                expenseTotal+=transaction.amount
+            }
+        })
+
+        setIncome(incomeTotal);
+        setExpense(expenseTotal);
+        setTotalBalance(incomeTotal-expenseTotal);
+    }
+    useEffect(()=>{
+        calculateBalance();
+    },[transactions])
+
     const onFinish=(values,type)=>{
         console.log("On Finish",values,type);
+        const newTransaction={
+            type:type,
+            date:values.date.format("YYYY-MM-DD"),
+            amount:parseFloat(values.amount),
+            tag:values.tag,
+            name:values.name
+        }
+       // console.log("User>>>>",user)
+        addTranscation(newTransaction);
+
     }
 
+    async function addTranscation(transaction){
+        try{
+            const docRef=await addDoc(
+                collection(db, `users/${user.uid}/transactions`),
+                transaction
+            );
+           // console.log("Document writted:", docRef.id);
+            toast.success("Transaction Added!")
+            let newarr=transactions;
+            newarr.push(transaction);
+            setTransactions(newarr);
+            calculateBalance();
+
+        }catch(e){
+            toast.error(e.message);
+        }
+    }
+
+    useEffect(()=>{
+        fetchTransactions();
+    },[user])
+
+    async function fetchTransactions(){
+        setLoading(true);
+        if(user){
+            const q=query(collection(db, `users/${user.uid}/transactions`))
+            const querySnapshot=await getDocs(q);
+            let transactionArray=[];
+            querySnapshot.forEach((doc)=>{
+                transactionArray.push(doc.data());
+            })
+            setTransactions(transactionArray);
+            console.log("Transaction Array.....",transactionArray)
+            toast.success("Transactions Fetched!")
+        }
+        setLoading(false);
+    }
 
 
     return(
         <div>
             <Header/>
+            {loading ?(<p>Loading...</p>):(<>
             <Cards showExpenseModal={showExpenseModal}
                    showIncomeModal={showIncomeModal}
+                   income={income}
+                   expense={expense}
+                   totalBalance={totalBalance}
             />
             <AddIncomeModal isIncomeModalVisible={isIncomeModalVisible} handleIncomeCancel={handleIncomeCancel} onFinish={onFinish}/>
-            <Modal visible={isExpenseModalVisible} onCancel={handleExpenseCancel}>Expense</Modal>
+            <AddExpenseModal isExpenseModalVisible={isExpenseModalVisible} handleExpenseCancel={handleExpenseCancel} onFinish={onFinish}/>
+            </>)}
+            <TransactionTable transactions={transactions}/>
         </div>
     )
 }

@@ -1,0 +1,61 @@
+.transaction-table{
+    width:90%;
+    margin:auto;
+}
+
+.input-flex{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap:0.5rem;
+    width:70%;
+    box-shadow: var(--shadow);
+    border-radius: 0.5rem;
+    padding: 0rem 0.5rem;
+}
+
+.input-flex input{
+    width:100%;
+    padding: 0.5rem;
+    border:0;
+}
+.table{
+    box-shadow: var(--shadow);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+.input-flex input:focus{
+    outline: none;
+}
+.selection-container{
+    display: flex;
+    gap:15px;
+    margin-bottom: 1rem;
+}
+h3{
+    font-weight: 500;
+}
+.ant-select{
+    width:30% !important;
+}
+
+.my-table{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.csv{
+    display: flex;
+    gap: 15px;
+    font-size: 0.8rem !important;
+}
+.csv div{
+    padding: 0.5rem 1rem !important;
+}
+.user-photo{
+    width: 40px;
+    height: 40px;
+    color: white;
+    border-radius: 50%;
+}
